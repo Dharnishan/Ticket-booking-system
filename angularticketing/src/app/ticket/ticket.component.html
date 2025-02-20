@@ -1,0 +1,95 @@
+<h1 class="text-center my-4">Tickets</h1>
+<div class="container">
+    <form (ngSubmit)="createTicket()">
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="newTicketDescription"><strong>Description</strong></label>
+                    <input type="text" id="newTicketDescription" class="form-control" [(ngModel)]="newTicket.description" name="newTicketDescription">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="newTicketReleaseRate"><strong>Ticket Release Rate</strong></label>
+                    <input type="number" id="newTicketReleaseRate" class="form-control" [(ngModel)]="newTicket.ticketReleaseRate" name="newTicketReleaseRate" [(ngModel)]="ticketReleaseRate">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="newCustomerRetrievalRate"><strong>Customer Retrieval Rate</strong></label>
+                    <input type="number" id="newCustomerRetrievalRate" class="form-control" [(ngModel)]="newTicket.customerRetrievalRate" name="newCustomerRetrievalRate" [(ngModel)]="customerRetrievalRate">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="newMaxTicketCapacity"><strong>Maximum Ticket Capacity</strong></label>
+                    <input type="number" id="newMaxTicketCapacity" class="form-control" [(ngModel)]="newTicket.maxTicketCapacity" name="newMaxTicketCapacity" [(ngModel)]="maxTicketCapacity" >
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-center mt-3 mt-md-0">
+                <button class="btn btn-success w-100" type="submit">Add Ticket</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <form>
+        <button (click)="startTicketingSystem()" class="btn btn-success mt-2">Start Ticketing System</button>
+        <button (click)="stopTicketingSystem()" class="btn btn-danger mt-2">Stop Ticketing System</button>
+    </form>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div *ngIf="!(tickets.length > 0); else ticketList">
+                <h3>No Tickets Available</h3>
+            </div>
+            <ng-template #ticketList>
+                <ul class="list-group" *ngFor="let ticket of tickets">
+                    <li class="list-group-item bg-secondary text-light">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    <strong>Description:</strong> {{ticket.description}}<br>
+                                    <strong>Release Rate:</strong> {{ticket.ticketReleaseRate}} <br>
+                                    <strong>Customer Retrieval Rate:</strong> {{ticket.customerRetrievalRate}} <br>
+                                    <strong>Max Capacity:</strong> {{ticket.maxTicketCapacity}}
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <!-- Add Start and Stop buttons for each ticket -->
+                                <button type="button" class="btn btn-success mx-2" (click)="startTicketingSystemForTicket(ticket)">Start</button>
+                                <button type="button" class="btn btn-danger" (click)="stopTicketingSystemForTicket(ticket)">Stop</button>
+                                <button type="button" class="btn btn-light mx-2" (click)="editTicket(ticket)">Edit</button>
+                                <button type="button" class="btn btn-danger" (click)="deleteTicket(ticket.id)">Delete</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </ng-template>
+        </div>
+
+        <!-- Edit Ticket Form -->
+        <div class="col-md-6" *ngIf="editingTicket">
+            <form (ngSubmit)="updateTicket()">
+                <h4>Edit Ticket</h4>
+                <div class="form-group">
+                    <label for="editTicketDescription">Edit Description</label>
+                    <input type="text" id="editTicketDescription" class="form-control" [(ngModel)]="updatedTicket.description" name="updateTicketDescription">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="editTicketReleaseRate">Edit Ticket Release Rate</label>
+                    <input type="number" id="editTicketReleaseRate" class="form-control" [(ngModel)]="updatedTicket.ticketReleaseRate" name="updateTicketReleaseRate">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="editTicketCustomerRetrievalRate">Edit Customer Retrieval Rate</label>
+                    <input type="number" id="editTicketCustomerRetrievalRate" class="form-control" [(ngModel)]="updatedTicket.customerRetrievalRate" name="updateTicketCustomerRetrievalRate">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="editTicketMaximumCapacity">Edit Maximum Capacity</label>
+                    <input type="number" id="editTicketMaximumCapacity" class="form-control" [(ngModel)]="updatedTicket.maxTicketCapacity" name="updateTicketMaximumCapacity">
+                </div>
+                <div class="form-group mt-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger" (click)="cancelEdit()">Cancel</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+<hr>
+<br>

@@ -1,0 +1,40 @@
+/* app.component.css or styles.css */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background: #34495e;
+    border-radius: 0;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+    line-height: 50px;
+    padding: 0 20px;
+    text-align: center;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: #2c3e50;
+}
+
+.container {
+    margin-top: 60px; /* Ensure content appears below the navbar */
+}
